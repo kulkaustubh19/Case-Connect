@@ -8,4 +8,6 @@ When implementing from a selected generated mock, treat that image as the source
 
 For account creation, place the Create account button after every required profile field.
 
+After a peer invitation succeeds, show a clear success confirmation and the booked session in My Calendar.
+
 Build app UI in `src/`. Keep `.openai/hosting.json`, `worker/index.js`, `scripts/prepare-sites-build.mjs`, and `tests/sites-worker.test.mjs` intact so the same local prototype can be handed to Sites. Before a Sites handoff, run `npm run build` and `npm run test:sites`; the build must leave `dist/client/index.html`, `dist/server/index.js`, and `dist/.openai/hosting.json`.

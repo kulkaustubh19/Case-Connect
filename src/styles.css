@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap');
+.invitation-success{display:flex;justify-content:space-between;gap:16px;align-items:center;margin:0 0 18px;padding:13px 15px;border:1px solid #b8e7c8;border-radius:10px;background:#effaf3;color:#177342;font-size:13px}.invitation-success span{color:#427050}
 .profile-other-industry[hidden]{display:none!important}
 .solution-view{display:block!important;grid-template-columns:none!important}.solution-view .panel:first-child{display:block!important;width:100%!important;max-width:none!important}.solution-view .solution-image{display:block!important;width:100%!important;max-width:none!important;height:auto!important}
 .case-media,.solution-view{margin-top:24px;padding:18px;border:1px solid #d7e5f5;border-radius:16px;background:linear-gradient(145deg,#fff,#f4f9ff);box-shadow:0 8px 24px #174a7d0d}.case-media img,.solution-view .solution-image{filter:hue-rotate(210deg) saturate(.8) brightness(1.04);box-shadow:0 8px 22px #0f427033}

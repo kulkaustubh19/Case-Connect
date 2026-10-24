@@ -202,7 +202,6 @@ async function enhanceProfileOnboarding() {
       if (!save.ok) { message.textContent = "Could not save your profile. Please try again."; message.hidden = false; return; }
       onboardingForUser = session.user.id;
       overlay.remove();
-      window.location.reload();
     });
   } catch { /* A later DOM update retries this harmlessly. */ }
 }
