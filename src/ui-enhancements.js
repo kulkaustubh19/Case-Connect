@@ -157,7 +157,10 @@ function enhanceSignupProfileFields() {
   const card = document.querySelector(".auth-card"), form = card?.querySelector("form");
   if (!card || !form || !/CREATE YOUR ACCOUNT/i.test(card.querySelector(".eyebrow")?.textContent ?? "")) return;
   if (!form.querySelector(".profile-signup-fields")) {
-    form.insertAdjacentHTML("beforeend", profileFieldsMarkup());
+    // Keep the submit action as the final control in the sign-up flow. The
+    // profile information is required before an account can be created.
+    const insertionPoint = form.querySelector(".auth-error") || form.querySelector(".primary.full");
+    insertionPoint?.insertAdjacentHTML("beforebegin", profileFieldsMarkup());
     const industry = form.querySelector("[name=profileIndustry]"), other = form.querySelector(".profile-other-industry");
     industry.addEventListener("change", () => { other.hidden = industry.value !== "Other"; other.querySelector("input").required = industry.value === "Other"; });
     form.addEventListener("submit", () => {
