@@ -165,7 +165,8 @@ function enhanceSignupProfileFields() {
     industry.addEventListener("change", () => { other.hidden = industry.value !== "Other"; other.querySelector("input").required = industry.value === "Other"; });
     form.addEventListener("submit", () => {
       const selectedIndustry = industry.value === "Other" ? form.querySelector("[name=profileIndustryOther]").value.trim() : industry.value;
-      localStorage.setItem("caseconnect_pending_profile", JSON.stringify({ work_experience: `${form.querySelector("[name=workYears]").value} years, ${form.querySelector("[name=workMonths]").value} months`, industry: selectedIndustry }));
+      const email = String(form.querySelector("[name=email]").value || "").trim().toLowerCase();
+      if (email) localStorage.setItem(`caseconnect_pending_profile:${email}`, JSON.stringify({ work_experience: `${form.querySelector("[name=workYears]").value} years, ${form.querySelector("[name=workMonths]").value} months`, industry: selectedIndustry }));
     }, { once: true });
   }
 }
@@ -180,10 +181,11 @@ async function enhanceProfileOnboarding() {
     const response = await fetch(`${baseUrl}/rest/v1/profiles?id=eq.${encodeURIComponent(session.user.id)}&select=id,full_name,work_experience,industry`, { headers });
     const [profile] = await response.json();
     if (!profile) return;
-    const pending = JSON.parse(localStorage.getItem("caseconnect_pending_profile") ?? "null");
+    const pendingKey = `caseconnect_pending_profile:${String(session.user.email || "").toLowerCase()}`;
+    const pending = JSON.parse(localStorage.getItem(pendingKey) ?? "null");
     if (pending?.work_experience && pending?.industry) {
       await fetch(`${baseUrl}/rest/v1/profiles?id=eq.${encodeURIComponent(session.user.id)}`, { method: "PATCH", headers, body: JSON.stringify(pending) });
-      localStorage.removeItem("caseconnect_pending_profile");
+      localStorage.removeItem(pendingKey);
       onboardingForUser = session.user.id;
       return;
     }
